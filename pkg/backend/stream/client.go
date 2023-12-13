@@ -17,26 +17,32 @@ import (
 
 type Client struct {
 	reader io.Reader
+	msgKey string
 }
 
-func New(file io.Reader) *Client {
-	return &Client{file}
+func New(file io.Reader, msgKey string) *Client {
+	if msgKey == "" {
+		msgKey = "message"
+	}
+	return &Client{file, msgKey}
 }
 
-func parseLine(line string) common.LogMessage {
+func (client *Client) parseLine(line string) common.LogMessage {
 	decoder := json.NewDecoder(strings.NewReader(line))
 	obj := make(map[string]interface{})
 	err := decoder.Decode(&obj)
 	if err != nil {
-		obj["message"] = strings.TrimSpace(line)
+		obj[client.msgKey] = strings.TrimSpace(line)
 		return common.LogMessage{
 			Timestamp:  time.Now(),
 			Attributes: obj,
+			MessageKey: client.msgKey,
 		}
 	}
 	return common.LogMessage{
 		Timestamp:  time.Now(), // TODO: Fix this
 		Attributes: obj,
+		MessageKey: client.msgKey,
 	}
 }
 
@@ -66,7 +72,7 @@ func (client *Client) Query(ctx context.Context, q common.Query) <-chan common.L
 				//fmt.Println("Error: ", err)
 				break
 			}
-			message := parseLine(line)
+			message := client.parseLine(line)
 			if ltFunc == nil {
 				ltFunc = heuristic.FindTimestampFunc(message)
 			}

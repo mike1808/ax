@@ -13,6 +13,7 @@ func TestFilter(t *testing.T) {
 			"someStr": "Zef",
 			"someN":   34,
 		},
+		MessageKey: "message",
 	}
 	lastHour := time.Now().Add(-time.Hour)
 	nextHour := time.Now().Add(time.Hour)

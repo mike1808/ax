@@ -162,7 +162,7 @@ func parseTime(format, s string) (time.Time, error) {
 
 func findTimestampInMessage(exampleMessage common.LogMessage) LogTimestampParser {
 	//fmt.Println("Message", message)
-	message, _ := exampleMessage.Attributes["message"].(string)
+	message, _ := exampleMessage.Message()
 	for i, formatRx := range formatsToTryRx {
 		if times := formatRx.FindString(message); times != "" {
 			_, err := parseTime(formatsToTry[i], times)
@@ -170,7 +170,7 @@ func findTimestampInMessage(exampleMessage common.LogMessage) LogTimestampParser
 				continue
 			}
 			return func(lm common.LogMessage) *time.Time {
-				message, _ := lm.Attributes["message"].(string)
+				message, _ := lm.Message()
 				if times := formatRx.FindString(message); times != "" {
 					ts, err := parseTime(formatsToTry[i], times)
 					if err != nil {

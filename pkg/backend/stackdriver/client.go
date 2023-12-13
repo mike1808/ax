@@ -86,7 +86,7 @@ func entryToLogMessage(entry *logging.Entry) common.LogMessage {
 	message.ID = entry.InsertID
 	switch v := entry.Payload.(type) {
 	case string:
-		message.Attributes["message"] = v
+		message.Attributes[message.MessageKey] = v
 	case map[string]interface{}:
 		message.Attributes = v
 	default:

@@ -30,6 +30,7 @@ func addQueryFlags(cmd *kingpin.CmdClause) *common.QuerySelectors {
 	cmd.Flag("where-exists", "Add a field existence filter").HintAction(existenceHintAction).StringsVar(&flags.Exists)
 	cmd.Flag("where-not-exists", "Add an inverse field existence filter").HintAction(existenceHintAction).StringsVar(&flags.NotExists)
 	cmd.Flag("uniq", "Unique log messages only").Default("false").BoolVar(&flags.Unique)
+	cmd.Flag("msg", "Key for the message field").Default("message").StringVar(&flags.MessageKey)
 	cmd.Arg("query", "Query string").Default("").StringsVar(&flags.QueryString)
 	return flags
 }
@@ -273,14 +274,14 @@ func printMessage(message common.LogMessage, queryOutputFormat string, colorConf
 		ts := message.Timestamp.Format(common.TimeFormat)
 		timestampColor := config.ColorToTermColor(colorConfig.Timestamp)
 		fmt.Printf("%s ", timestampColor.Sprintf("[%s]", ts))
-		if msg, ok := message.Attributes["message"].(string); ok {
+		if msg, ok := message.Message(); ok {
 			messageColor := config.ColorToTermColor(colorConfig.Message)
 			fmt.Printf("%s ", messageColor.Sprint(msg))
 		}
 		attributeKeyColor := config.ColorToTermColor(colorConfig.AttributeKey)
 		attributeValueColor := config.ColorToTermColor(colorConfig.AttributeValue)
 		for key, value := range message.Attributes {
-			if key == "message" || value == nil {
+			if key == message.MessageKey || value == nil {
 				continue
 			}
 			fmt.Printf("%s%s ", attributeKeyColor.Sprintf("%s=", key), attributeValueColor.Sprintf("%+v", value))

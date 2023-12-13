@@ -13,7 +13,7 @@ func TestFindTimestamp(t *testing.T) {
 	sampleData := `{"jstimestamp":1504516581620, "message": "Sup yo"}
 {"ts": "2017-08-04T11:16:52.088Z", "message": "Sup yo 2"}
 `
-	sc := New(strings.NewReader(sampleData))
+	sc := New(strings.NewReader(sampleData), "")
 	for msg := range sc.Query(context.Background(), common.Query{}) {
 		//fmt.Printf("%+v\n", msg)
 		if msg.Timestamp.Day() != 4 {
@@ -32,7 +32,7 @@ func TestFindTimestampInMessage(t *testing.T) {
 {"message": "(2017-06-04 09:25:39,261) INFO    (Processor) End of sync notification sent to server"}
 `
 	months := []time.Month{7, 6, 5, 6}
-	sc := New(strings.NewReader(sampleData))
+	sc := New(strings.NewReader(sampleData), "")
 	counter := 0
 	for msg := range sc.Query(context.Background(), common.Query{}) {
 		if msg.Timestamp.Month() != months[counter] {

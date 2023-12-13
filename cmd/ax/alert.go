@@ -45,7 +45,7 @@ func watchAlerts(ctx context.Context, rc config.RuntimeConfig, alertConfig confi
 	query := querySelectorsToQuery(&alertConfig.Selector)
 	query.Follow = true
 	query.MaxResults = 100
-	client := determineClient(rc.Config.Environments[alertConfig.Env])
+	client := determineClient(rc.Config.Environments[alertConfig.Env], alertFlags)
 	if client == nil {
 		fmt.Println("Cannot obtain a client for", alertConfig)
 		return

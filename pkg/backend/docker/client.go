@@ -45,7 +45,7 @@ func (client *DockerClient) Query(ctx context.Context, query common.Query) <-cha
 			command = append(command, "-f")
 		}
 		command = append(command, containerName)
-		client := subprocess.New(command)
+		client := subprocess.New(command, "")
 		runningCommands++
 		go func() {
 			for message := range client.Query(ctx, query) {

@@ -31,11 +31,11 @@ var (
 	versionFlag     = kingpin.Version(version)
 )
 
-func determineClient(em config.EnvMap) common.Client {
+func determineClient(em config.EnvMap, flags *common.QuerySelectors) common.Client {
 	stat, _ := os.Stdin.Stat()
 	var client common.Client
 	if (stat.Mode() & os.ModeCharDevice) == 0 {
-		client = stream.New(os.Stdin)
+		client = stream.New(os.Stdin, flags.MessageKey)
 	} else {
 		switch em["backend"] {
 		case "docker":
@@ -47,7 +47,7 @@ func determineClient(em config.EnvMap) common.Client {
 		case "stackdriver":
 			client = stackdriver.New(em["credentials"], em["project"], em["log"])
 		case "subprocess":
-			client = subprocess.New(strings.Split(em["command"], " "))
+			client = subprocess.New(strings.Split(em["command"], " "), flags.MessageKey)
 		}
 	}
 	return client
@@ -75,10 +75,10 @@ func main() {
 	cmd := kingpin.Parse()
 
 	rc := config.BuildConfig()
-	client := determineClient(rc.Env)
 
 	switch cmd {
 	case "query":
+		client := determineClient(rc.Env, queryFlags)
 		ctx := sigtermContextHandler(context.Background())
 		if client == nil {
 			if len(rc.Config.Environments) == 0 {
@@ -98,6 +98,7 @@ func main() {
 	case "env edit":
 		config.EditConfig()
 	case "alert add":
+		client := determineClient(rc.Env, alertFlags)
 		addAlertMain(rc, client)
 	case "alertd":
 		alertMain(context.Background(), rc)

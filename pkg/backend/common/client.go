@@ -64,6 +64,7 @@ type QuerySelectors struct {
 	NotExists   []string `yaml:"not_exists,omitempty"`
 	Unique      bool     `yaml:"unique,omitempty"`
 	QueryString []string `yaml:"query,omitempty"`
+	MessageKey  string   `yaml:"msg,omitempty"`
 }
 
 type LogMessage struct {
@@ -71,6 +72,7 @@ type LogMessage struct {
 	Timestamp time.Time `json:"@timestamp"`
 	// required: "message" attribute
 	Attributes map[string]interface{} `json:"attributes"`
+	MessageKey string                 `json:"-"`
 }
 
 // Map performs a shallow copy of the Attributes map and adds fields for '@id' and '@timestamp'
@@ -105,9 +107,19 @@ func (lm LogMessage) ContentHash() string {
 	return fmt.Sprintf("%x", h.Sum(nil))[0:10]
 }
 
+func (lm LogMessage) Message() (string, bool) {
+	key := lm.MessageKey
+	if key == "" {
+		key = "message"
+	}
+	msg, ok := lm.Attributes[key].(string)
+	return msg, ok
+}
+
 func NewLogMessage() LogMessage {
 	return LogMessage{
 		Attributes: make(map[string]interface{}),
+		MessageKey: "message",
 	}
 }
 
@@ -206,7 +218,7 @@ func matchesPhrase(s, phrase string) bool {
 }
 
 func MatchesQuery(m LogMessage, q Query) bool {
-	msg, _ := m.Attributes["message"].(string)
+	msg, _ := m.Message()
 	matchFound := matchesPhrase(msg, q.QueryString)
 	if q.QueryString != "" {
 		for _, v := range m.Attributes {

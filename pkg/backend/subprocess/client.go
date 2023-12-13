@@ -12,6 +12,7 @@ import (
 
 type SubprocessClient struct {
 	command []string
+	msgKey  string
 }
 
 func (client *SubprocessClient) ImplementsAdvancedFilters() bool {
@@ -27,14 +28,14 @@ func (client *SubprocessClient) Query(ctx context.Context, query common.Query) <
 		close(resultChan)
 		return resultChan
 	}
-	stdOutStream := stream.New(stdOut)
+	stdOutStream := stream.New(stdOut, client.msgKey)
 	stdErr, err := cmd.StderrPipe()
 	if err != nil {
 		log.Printf("Could not get stderr pipe: %v", err)
 		close(resultChan)
 		return resultChan
 	}
-	stdErrStream := stream.New(stdErr)
+	stdErrStream := stream.New(stdErr, client.msgKey)
 	if err := cmd.Start(); err != nil {
 		fmt.Printf("Could not start process: %s because: %v\n", client.command[0], err)
 		close(resultChan)
@@ -75,8 +76,8 @@ func (client *SubprocessClient) Query(ctx context.Context, query common.Query) <
 	return resultChan
 }
 
-func New(command []string) *SubprocessClient {
-	return &SubprocessClient{command}
+func New(command []string, msgKey string) *SubprocessClient {
+	return &SubprocessClient{command, msgKey}
 }
 
 var _ common.Client = &SubprocessClient{}
