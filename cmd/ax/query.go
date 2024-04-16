@@ -11,9 +11,9 @@ import (
 	"time"
 
 	"github.com/araddon/dateparse"
-	"github.com/egnyte/ax/pkg/backend/common"
-	"github.com/egnyte/ax/pkg/complete"
-	"github.com/egnyte/ax/pkg/config"
+	"github.com/mike1808/ax/pkg/backend/common"
+	"github.com/mike1808/ax/pkg/complete"
+	"github.com/mike1808/ax/pkg/config"
 	"github.com/zefhemel/kingpin"
 	yaml "gopkg.in/yaml.v2"
 )

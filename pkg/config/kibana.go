@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"fmt"
 
-	"github.com/egnyte/ax/pkg/backend/kibana"
+	"github.com/mike1808/ax/pkg/backend/kibana"
 )
 
 func kibanaConfig(reader *bufio.Reader, existingConfig Config) (EnvMap, error) {

@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"fmt"
 
-	"github.com/egnyte/ax/pkg/backend/cloudwatch"
+	"github.com/mike1808/ax/pkg/backend/cloudwatch"
 )
 
 func cloudwatchConfig(reader *bufio.Reader, existingConfig Config) (EnvMap, error) {

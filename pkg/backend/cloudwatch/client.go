@@ -11,7 +11,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
-	"github.com/egnyte/ax/pkg/backend/common"
+	"github.com/mike1808/ax/pkg/backend/common"
 )
 
 type CloudwatchClient struct {

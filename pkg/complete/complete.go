@@ -6,9 +6,9 @@ import (
 
 	"log"
 
-	"github.com/egnyte/ax/pkg/backend/common"
-	"github.com/egnyte/ax/pkg/cache"
-	"github.com/egnyte/ax/pkg/config"
+	"github.com/mike1808/ax/pkg/backend/common"
+	"github.com/mike1808/ax/pkg/cache"
+	"github.com/mike1808/ax/pkg/config"
 )
 
 const cacheFilename = "attribute-cache.json"

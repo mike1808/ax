@@ -6,8 +6,8 @@ import (
 	"log"
 	"os/exec"
 
-	"github.com/egnyte/ax/pkg/backend/common"
-	"github.com/egnyte/ax/pkg/backend/stream"
+	"github.com/mike1808/ax/pkg/backend/common"
+	"github.com/mike1808/ax/pkg/backend/stream"
 )
 
 type SubprocessClient struct {

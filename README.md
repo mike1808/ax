@@ -37,7 +37,7 @@ If you want to install the `ax` binary into another location, simply set the `BI
 
 to install in the current directory.
 
-If you don't trust piping random shell scripts from the internet into a shell, feel free to download the `install.sh` script first, inspect it, then run it through bash manually or, simply go through the [Ax releases](https://github.com/egnyte/ax/releases) page and download the tarball of your choice.
+If you don't trust piping random shell scripts from the internet into a shell, feel free to download the `install.sh` script first, inspect it, then run it through bash manually or, simply go through the [Ax releases](https://github.com/mike1808/ax/releases) page and download the tarball of your choice.
 
 Upgrade using:
 
@@ -46,14 +46,14 @@ Upgrade using:
 ### Bleeding edge with Go-tools
 For now there's no pre-built binaries, so to run this you need a reasonably recent version of Go, then download it into your GOPATH:
 
-    go get -u github.com/egnyte/ax/...
+    go get -u github.com/mike1808/ax/...
 
 This will also put the `ax` binary into your `$GOPATH/bin` so make sure that's in your `$PATH`.
 
 To update Ax to the latest and greatest, just rerun the command above.
 
 ## Development
-After the above `go get` call, you will have a git checkout of the repo under `$GOPATH/src/github.com/egnyte/ax`. If you want to work on Ax, just fork the repo and update `.git/config` appropriately.
+After the above `go get` call, you will have a git checkout of the repo under `$GOPATH/src/github.com/mike1808/ax`. If you want to work on Ax, just fork the repo and update `.git/config` appropriately.
 
 To make sure you're building Ax with the approriate versions of its dependencies run:
 

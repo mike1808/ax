@@ -1,5 +1,5 @@
 all:
-	go install github.com/egnyte/ax/cmd/ax
+	go install github.com/mike1808/ax/cmd/ax
 
 test:
 	go test ./cmd/... ./pkg/...

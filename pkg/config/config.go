@@ -17,8 +17,8 @@ import (
 	"github.com/zefhemel/kingpin"
 	yaml "gopkg.in/yaml.v2"
 
-	"github.com/egnyte/ax/pkg/backend/common"
-	"github.com/egnyte/ax/pkg/backend/docker"
+	"github.com/mike1808/ax/pkg/backend/common"
+	"github.com/mike1808/ax/pkg/backend/docker"
 	"github.com/olekukonko/tablewriter"
 )
 

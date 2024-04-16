@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/egnyte/ax/pkg/alert"
-	"github.com/egnyte/ax/pkg/alert/slack"
-	"github.com/egnyte/ax/pkg/backend/common"
-	"github.com/egnyte/ax/pkg/config"
+	"github.com/mike1808/ax/pkg/alert"
+	"github.com/mike1808/ax/pkg/alert/slack"
+	"github.com/mike1808/ax/pkg/backend/common"
+	"github.com/mike1808/ax/pkg/config"
 )
 
 var (

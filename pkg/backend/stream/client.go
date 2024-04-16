@@ -11,8 +11,8 @@ import (
 
 	"time"
 
-	"github.com/egnyte/ax/pkg/backend/common"
-	"github.com/egnyte/ax/pkg/heuristic"
+	"github.com/mike1808/ax/pkg/backend/common"
+	"github.com/mike1808/ax/pkg/heuristic"
 )
 
 type Client struct {

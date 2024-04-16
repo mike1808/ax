@@ -1,4 +1,4 @@
-module github.com/egnyte/ax
+module github.com/mike1808/ax
 
 go 1.21.3
 

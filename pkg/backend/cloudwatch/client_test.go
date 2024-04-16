@@ -3,7 +3,7 @@ package cloudwatch
 import (
 	"testing"
 
-	"github.com/egnyte/ax/pkg/backend/common"
+	"github.com/mike1808/ax/pkg/backend/common"
 )
 
 func TestParsing(t *testing.T) {

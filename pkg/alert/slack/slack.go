@@ -11,9 +11,9 @@ import (
 
 	yaml "gopkg.in/yaml.v2"
 
-	"github.com/egnyte/ax/pkg/alert"
-	"github.com/egnyte/ax/pkg/backend/common"
-	"github.com/egnyte/ax/pkg/cache"
+	"github.com/mike1808/ax/pkg/alert"
+	"github.com/mike1808/ax/pkg/backend/common"
+	"github.com/mike1808/ax/pkg/cache"
 )
 
 type SlackAlerter struct {
